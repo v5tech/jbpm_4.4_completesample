@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="web" namespace="/" extends="global">
+		<interceptors>
+			<interceptor name="loginInterceptor" class="com.jbpm.interceptor.LoginInterceptor">
+			</interceptor>
+			<interceptor-stack name="myAdminStack">
+				<interceptor-ref name="loginInterceptor">
+				</interceptor-ref>
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="myAdminStack" />
+		<default-action-ref name="index"></default-action-ref>
+		<action name="index" class="jbpmAction" method="init">
+			<result>index.jsp</result>
+		</action>
+		<action name="*" class="jbpmAction" method="{1}">
+		</action>
+		<action name="login" class="loginAction" method="login">
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		<action name="unlogin" class="loginAction" method="unlogin">
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		<action name="request" class="jbpmAction" method="request">
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result>/request.jsp</result>
+		</action>
+		<action name="manager" class="jbpmAction" method="managerRequerst">
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result>/manager.jsp</result>
+		</action>
+		<action name="boss" class="jbpmAction" method="bossRequest">
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result>/boss.jsp</result>
+		</action>
+		<action name="view" class="jbpmAction" method="view">
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result>/view.jsp</result>
+		</action>
+	</package>
+</struts>
